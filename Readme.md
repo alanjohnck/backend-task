@@ -51,16 +51,17 @@ The server will start on `http://localhost:3000`
 ### Base URL
 
 ```
-http://localhost:3000/api/reports
+http://localhost:3000/
 ```
 
 ### Endpoints
 
-| Method | Endpoint              | Description             | Query Parameters       |
-| ------ | --------------------- | ----------------------- | ---------------------- |
-| GET    | `/overview`           | Overview statistics     | `startDate`, `endDate` |
-| GET    | `/company/:companyId` | Company-specific report | `startDate`, `endDate` |
-| GET    | `/member/:memberId`   | Member activity report  | `startDate`, `endDate` |
+| Method | Endpoint                    | Description                   | Query Parameters       |
+| ------ | --------------------------- | ----------------------------- | ---------------------- |
+| GET    | `report/overview`           | Overview statistics           | `startDate`, `endDate` |
+| GET    | `report/company/:companyId` | Company-specific report       | `startDate`, `endDate` |
+| GET    | `report/member/:memberId`   | Member activity report        | `startDate`, `endDate` |
+| POST   | `/activity/add-activity`    | Add new activity for a member | -                      |
 
 ### Sample API Responses
 
@@ -247,6 +248,43 @@ GET /report/overview?startDate=2024-03-02&endDate=2024-03-03
 }
 ```
 
+#### 5. Add New Activity (POST)
+
+**Request:**
+
+```bash
+POST /activity/add-activity
+Content-Type: application/json
+
+{
+  "memberId": "mem_1",
+  "date": "2024-03-04",
+  "type": "coding",
+  "hours": 3,
+  "tags": ["bugfix", "backend"]
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "Activity added successfully",
+  "activity": {
+    "date": "2024-03-04",
+    "type": "coding",
+    "hours": 3,
+    "tags": ["bugfix", "backend"]
+  },
+  "member": {
+    "memberId": "mem_1",
+    "name": "Alice",
+    "teamName": "Engineering",
+    "companyName": "Alpha Inc"
+  }
+}
+```
+
 ## 🧪 Testing the API
 
 ### Using curl:
@@ -263,6 +301,21 @@ curl http://localhost:3000/report/member/mem_1
 
 # Get filtered overview
 curl "http://localhost:3000/report/overview?startDate=2024-03-01&endDate=2024-03-02"
+
+### Add New Activity
+POST http://localhost:3000/activity/add-activity
+Content-Type: application/json
+
+{
+  "memberId": "mem_1",
+  "date": "2024-03-04",
+  "type": "coding",
+  "hours": 3,
+  "tags": ["bugfix", "backend"]
+}
+
+#test
+GET http://localhost:3000/activity/company/comp_1
 ```
 
 ### Using Postman:
@@ -270,3 +323,7 @@ curl "http://localhost:3000/report/overview?startDate=2024-03-01&endDate=2024-03
 1. Import the base URL: `http://localhost:3000/report`
 2. Test each endpoint with the provided paths
 3. Add query parameters for date filtering
+
+```
+
+```

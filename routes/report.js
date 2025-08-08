@@ -10,7 +10,7 @@ function isWithinDateRange(date, startDate, endDate) {
   return true;
 }
 
-// ==================== OVERVIEW ====================
+// OVERVIEW 
 router.get('/overview', (req, res) => {
   const { startDate, endDate } = req.query;
 
@@ -51,7 +51,7 @@ router.get('/overview', (req, res) => {
   });
 });
 
-// ==================== COMPANY ====================
+// COMPANY
 router.get("/company/:companyId", (req, res) => {
   const { companyId } = req.params;
   const { startDate, endDate } = req.query;

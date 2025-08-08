@@ -1,0 +1,12 @@
+
+POST http://localhost:3000/activity/add-activity
+Content-Type: application/json
+
+{
+  "memberId": "mem_1",
+  "date": "2024-03-04",
+  "type": "coding",
+  "hours": 3,
+  "tags": ["bugfix", "backend"]
+}
+###
