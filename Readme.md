@@ -315,7 +315,4 @@ curl -X POST http://localhost:3000/activity/add-activity \
     "tags": ["bugfix", "backend"]
   }'
 
-
-#test
-curl http://localhost:3000/activity/company/comp_1
 ```
