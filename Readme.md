@@ -303,27 +303,17 @@ curl http://localhost:3000/report/member/mem_1
 curl "http://localhost:3000/report/overview?startDate=2024-03-01&endDate=2024-03-02"
 
 ### Add New Activity
-POST http://localhost:3000/activity/add-activity
-Content-Type: application/json
+curl -X POST http://localhost:3000/activity/add-activity \
+  -H "Content-Type: application/json" \
+  -d '{
+    "memberId": "mem_1",
+    "date": "2024-03-04",
+    "type": "coding",
+    "hours": 3,
+    "tags": ["bugfix", "backend"]
+  }'
 
-{
-  "memberId": "mem_1",
-  "date": "2024-03-04",
-  "type": "coding",
-  "hours": 3,
-  "tags": ["bugfix", "backend"]
-}
 
 #test
-GET http://localhost:3000/activity/company/comp_1
-```
-
-### Using Postman:
-
-1. Import the base URL: `http://localhost:3000/report`
-2. Test each endpoint with the provided paths
-3. Add query parameters for date filtering
-
-```
-
+curl http://localhost:3000/activity/company/comp_1
 ```
