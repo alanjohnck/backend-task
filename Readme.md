@@ -1,6 +1,6 @@
-# Backend Task - Company Activity Reporting API
+# Company Activity Reporting API
 
-A Node.js Express API for managing and reporting company activity data including companies, teams, members, and their activities.
+A RESTful API built with Node.js and Express for managing and reporting company activity data. Track companies, teams, members, and their daily activities with comprehensive reporting features.
 
 ## 📁 Project Structure
 
@@ -12,96 +12,261 @@ backend-task/
 │   └── report.js            # API route handlers
 ├── index.js                   # Main application file
 ├── package.json             # Project dependencies and scripts
-└── README.md               # This file
+├── .gitignore              # Git ignore rules
+└── README.md               # Project documentation
 ```
 
-## 🚀 Setup Instructions
+## 🛠️ Setup Instructions
 
 ### Prerequisites
 
 - Node.js (v14 or higher)
-- npm (comes with Node.js)
+- npm (v6 or higher)
 
 ### Installation
 
-1. **Clone or navigate to the project directory:**
+1. **Clone the repository:**
 
    ```bash
    git clone https://github.com/alanjohnck/backend-task.git
    cd backend-task
    ```
 
-2. **Initialize npm (if package.json doesn't exist):**
+2. **Install dependencies:**
 
    ```bash
-   npm init -y
+   npm install
    ```
 
-3. **Install dependencies:**
-
-   ```bash
-   npm install express
-   npm install --save-dev nodemon
-   ```
-
-4. **Create the main application file (app.js):**
-
-   ```bash
-   # This file should be created as shown below
-   ```
-
-5. **Update package.json scripts:**
-   ```bash
-   npm pkg set scripts.start="node app.js"
-   npm pkg set scripts.dev="nodemon app.js"
-   ```
-
-### Running the Application
-
-1. **Development mode (with auto-restart):**
+3. **Start the development server:**
 
    ```bash
    npm run dev
    ```
 
-2. **Production mode:**
-   ```bash
-   npm start
-   ```
-
 The server will start on `http://localhost:3000`
 
-## 📚 API Endpoints
+## 📚 API Documentation
 
-### Base URL: `http://localhost:3000/report`
+### Base URL
 
-| Method | Endpoint              | Description                                 |
-| ------ | --------------------- | ------------------------------------------- |
-| GET    | `/overview`           | Get overall statistics across all companies |
-| GET    | `/company/:companyId` | Get detailed report for a specific company  |
-| GET    | `/member/:memberId`   | Get detailed report for a specific member   |
+```
+http://localhost:3000/api/reports
+```
 
-### Example Requests
+### Endpoints
+
+| Method | Endpoint              | Description             | Query Parameters       |
+| ------ | --------------------- | ----------------------- | ---------------------- |
+| GET    | `/overview`           | Overview statistics     | `startDate`, `endDate` |
+| GET    | `/company/:companyId` | Company-specific report | `startDate`, `endDate` |
+| GET    | `/member/:memberId`   | Member activity report  | `startDate`, `endDate` |
+
+### Sample API Responses
+
+#### 1. Overview Report
+
+**Request:**
+
+```bash
+GET /report/overview
+```
+
+**Response:**
+
+```json
+{
+  "totalCompanies": 2,
+  "totalTeams": 3,
+  "totalMembers": 5,
+  "totalActivities": 11,
+  "totalHours": 34,
+  "topActivityTypes": [
+    {
+      "type": "coding",
+      "totalHours": 11
+    },
+    {
+      "type": "meeting",
+      "totalHours": 9
+    },
+    {
+      "type": "content",
+      "totalHours": 7
+    },
+    {
+      "type": "design",
+      "totalHours": 4
+    },
+    {
+      "type": "seo",
+      "totalHours": 2
+    },
+    {
+      "type": "review",
+      "totalHours": 1
+    }
+  ]
+}
+```
+
+#### 2. Company Report
+
+**Request:**
+
+```bash
+GET /report/company/comp_1
+```
+
+**Response:**
+
+```json
+{
+  "companyId": "comp_1",
+  "companyName": "Alpha Inc",
+  "teams": [
+    {
+      "teamId": "team_1",
+      "teamName": "Engineering",
+      "totalMembers": 2,
+      "totalHours": 17,
+      "activityBreakdown": [
+        {
+          "type": "coding",
+          "totalHours": 11
+        },
+        {
+          "type": "meeting",
+          "totalHours": 5
+        },
+        {
+          "type": "review",
+          "totalHours": 1
+        }
+      ],
+      "uniqueTags": [
+        "feature",
+        "frontend",
+        "planning",
+        "code",
+        "bugfix",
+        "sync"
+      ]
+    },
+    {
+      "teamId": "team_2",
+      "teamName": "Design",
+      "totalMembers": 1,
+      "totalHours": 6,
+      "activityBreakdown": [
+        {
+          "type": "design",
+          "totalHours": 4
+        },
+        {
+          "type": "meeting",
+          "totalHours": 2
+        }
+      ],
+      "uniqueTags": ["ui", "figma", "handoff"]
+    }
+  ]
+}
+```
+
+#### 3. Member Report
+
+**Request:**
+
+```bash
+GET /report/member/mem_1
+```
+
+**Response:**
+
+```json
+{
+  "memberId": "mem_1",
+  "name": "Alice",
+  "totalHours": 8,
+  "dailyBreakdown": [
+    {
+      "date": "2024-03-01",
+      "activities": ["coding"],
+      "hours": 5
+    },
+    {
+      "date": "2024-03-02",
+      "activities": ["meeting"],
+      "hours": 2
+    },
+    {
+      "date": "2024-03-03",
+      "activities": ["review"],
+      "hours": 1
+    }
+  ]
+}
+```
+
+#### 4. Date Filtering
+
+**Request:**
+
+```bash
+GET /report/overview?startDate=2024-03-02&endDate=2024-03-03
+```
+
+**Response:**
+
+```json
+{
+  "totalCompanies": 2,
+  "totalTeams": 3,
+  "totalMembers": 5,
+  "totalActivities": 7,
+  "totalHours": 16,
+  "topActivityTypes": [
+    {
+      "type": "meeting",
+      "totalHours": 9
+    },
+    {
+      "type": "design",
+      "totalHours": 4
+    },
+    {
+      "type": "seo",
+      "totalHours": 2
+    },
+    {
+      "type": "review",
+      "totalHours": 1
+    }
+  ]
+}
+```
+
+## 🧪 Testing the API
+
+### Using curl:
 
 ```bash
 # Get overview
-curl http://localhost:3000/report/overview
+curl http://localhost:3000/api/reports/overview
 
 # Get company report
-curl http://localhost:3000/report/company/comp_1
+curl http://localhost:3000/api/reports/company/comp_1
 
 # Get member report
-curl http://localhost:3000/report/member/mem_1
+curl http://localhost:3000/api/reports/member/mem_1
+
+# Get filtered overview
+curl "http://localhost:3000/api/reports/overview?startDate=2024-03-01&endDate=2024-03-02"
 ```
 
-## 🛠️ Development
+### Using Postman:
 
-### Project Dependencies
-
-- **express**: Web framework for Node.js
-- **nodemon**: Development tool for auto-restarting the server
-
-## 📝 Notes
-
-- The application uses in-memory data storage
-- All data is defined in `data/data.js`
+1. Import the base URL: `http://localhost:3000/report`
+2. Test each endpoint with the provided paths
+3. Add query parameters for date filtering
