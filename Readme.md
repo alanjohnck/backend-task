@@ -9,10 +9,12 @@ backend-task/
 ├── data/
 │   └── data.js              # Sample company data
 ├── routes/
-│   └── report.js            # API route handlers
-├── index.js                   # Main application file
+│   ├── report.js            # Report API route handlers
+│   └── activity.js          # Activity API route handlers
+├── index.js                 # Main application file
 ├── package.json             # Project dependencies and scripts
 ├── .gitignore              # Git ignore rules
+├── api-tests.http          # API testing file
 └── README.md               # Project documentation
 ```
 
