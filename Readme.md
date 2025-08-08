@@ -253,16 +253,16 @@ GET /report/overview?startDate=2024-03-02&endDate=2024-03-03
 
 ```bash
 # Get overview
-curl http://localhost:3000/api/reports/overview
+curl http://localhost:3000/report/overview
 
 # Get company report
-curl http://localhost:3000/api/reports/company/comp_1
+curl http://localhost:3000/report/company/comp_1
 
 # Get member report
-curl http://localhost:3000/api/reports/member/mem_1
+curl http://localhost:3000/report/member/mem_1
 
 # Get filtered overview
-curl "http://localhost:3000/api/reports/overview?startDate=2024-03-01&endDate=2024-03-02"
+curl "http://localhost:3000/report/overview?startDate=2024-03-01&endDate=2024-03-02"
 ```
 
 ### Using Postman:
